@@ -15,11 +15,16 @@ public class bankAccount {
     public bankAccount(String accountHolder,String accountNumber,int pin){
         this.accountHolder=accountHolder;
         this.accountNumber=accountNumber;
-        this.pin=pin;
+        if( pin<1000 || pin>9999){
+            System.out.println("Xeberdarliq: PIN 4 reqemli olmalidir!");
+        } else {
+            this.pin=pin;
+        }
         this.balance=0.0;
         this.isLocked=false;
         this.wrongAttemps=0;
         this.transactionHistory=new ArrayList<>();
+         this.interestRate=5.0;
         }
 
         public void lockAccount() {
