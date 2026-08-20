@@ -15,11 +15,16 @@ public class bankAccount {
     public bankAccount(String accountHolder,String accountNumber,int pin){
         this.accountHolder=accountHolder;
         this.accountNumber=accountNumber;
-        this.pin=pin;
+        if(pin<1000 || pin>9999){
+            System.out.println("Xeberdarliq: PIN 4 reqemli olmalidir!");
+        } else {
+            this.pin=pin;
+        }
         this.balance=0.0;
         this.isLocked=false;
         this.wrongAttemps=0;
         this.transactionHistory=new ArrayList<>();
+        this.interestRate=5.0;
         }
 
         public void lockAccount() {
@@ -70,15 +75,21 @@ public class bankAccount {
             }
         }
         public void transferTo(bankAccount receiver,double amount,int enteredPin) {
-            if (isLocked) {
-                System.out.println("Hesab bloklanib.");
+            if (enteredPin!=this.pin) {
+                wrongAttemps++;
+                if (wrongAttemps < 3) {
+                    System.out.println("Yanlis Pin");
+                } else {
+                    lockAccount();
+                    System.out.println("Hesab bloklanib.");
+                }
             } else {
                 boolean success = this.withDraw(amount, enteredPin);
-                if (success) {
-                    receiver.deposit(amount);
-                    transactionHistory.add("Transfer to " + receiver.accountHolder + ": -" + amount);
-                    System.out.println("Kocurme ugurlu oldu.");
-                } else {
+                    if (success) {
+                       receiver.deposit(amount);
+                       transactionHistory.add("Transfer to " + receiver.accountHolder + ": -" + amount);
+                       System.out.println("Kocurme ugurlu oldu.");
+                    } else {
                     System.out.println("Kocurme ugursuz oldu.");
                 }
             }
