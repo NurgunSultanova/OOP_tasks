@@ -14,13 +14,5 @@ public class Main {
         user1.checkBalance(1223);
         user3.withDraw(4500,9823);
 
-        user1.applyInterest();
-        user2.printHistory();
-        user3.printHistory();
-
-        user2.transferTo(user1,200,2345);
-        user2.transferTo(user1,200,2347);
-        user2.transferTo(user1,200,2343);
-
     }
 }

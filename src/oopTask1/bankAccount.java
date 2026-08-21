@@ -24,7 +24,6 @@ public class bankAccount {
         this.isLocked=false;
         this.wrongAttemps=0;
         this.transactionHistory=new ArrayList<>();
-        this.interestRate=5.0;
         }
 
         public void lockAccount() {
